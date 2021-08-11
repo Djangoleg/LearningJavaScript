@@ -10,7 +10,7 @@
  */
 function calcFahrenheitTemperature(celsus) {
 
-    return 9 / 5 * celsus + 32
+    return 9 / 5 * celsus + 32;
 }
 
 let cel = 30;
