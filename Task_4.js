@@ -8,52 +8,52 @@ function getRange(a) {
 
     switch(a) {
         case 0: {
-            arr.push(0);
+            arr.push(a++);
         } 
         case 1: {
-            arr.push(1);
+            arr.push(a++);
         }
         case 2: {
-            arr.push(2);
+            arr.push(a++);
         }
         case 3: {
-            arr.push(3);
+            arr.push(a++);
         }
         case 4: {
-            arr.push(4);
+            arr.push(a++);
         } 
         case 5: {
-            arr.push(5);
+            arr.push(a++);
         } 
         case 6: {
-            arr.push(6);
+            arr.push(a++);
         }
         case 7: {
-            arr.push(7);
+            arr.push(a++);
         } 
         case 8: {
-            arr.push(8);
+            arr.push(a++);
         } 
         case 9: {
-            arr.push(9);
+            arr.push(a++);
         } 
         case 10: {
-            arr.push(10);
+            arr.push(a++);
         }
         case 11: {
-            arr.push(11);
+            arr.push(a++);
         }
         case 12: {
-            arr.push(12);
+            arr.push(a++);
         }
         case 13: {
-            arr.push(13);
+            arr.push(a++);
         }
         case 14: {
-            arr.push(14);
+            arr.push(a++);
         }
         case 15: {
-            arr.push(15);
+            arr.push(a++);
         }
     }
 
