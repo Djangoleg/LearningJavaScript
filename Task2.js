@@ -7,13 +7,12 @@
     b) Организовать функцию countBasketPrice, которая будет считать стоимость корзины.
 */
 
-function countBasketPrice(basket) {
+const countBasketPrice = basket => {
     let basketPrice = 0;
     
     for (let i = 0; i < basket.length; i++) {
         basketPrice += basket[i][1] * basket[i][2];
     }
-    
     return basketPrice;
 }
 
