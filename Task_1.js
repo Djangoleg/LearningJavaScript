@@ -6,6 +6,11 @@
 */
 
 function getObjectNum(num) {
+
+    if (!Number.isInteger(num)) {
+        console.log('Пердано не число!');
+        return {};  
+    }
   
     if (num > 999 ) {
       console.log('Число превышает 999');
@@ -17,23 +22,26 @@ function getObjectNum(num) {
     let unit = num - ((hundred * 100) + (dozen * 10));
   
     return {
-      'единицы': unit, 
-      'десятки': dozen, 
-      'сотни': hundred
+      units: unit, 
+      dozens: dozen, 
+      hundreds: hundred
     }
-  }
-  
-  console.log(getObjectNum(245));
-  console.log(getObjectNum(1000));
-  console.log(getObjectNum(15));
-  console.log(getObjectNum(7));
+}
+
+console.log(getObjectNum(245));
+console.log(getObjectNum(1000));
+console.log(getObjectNum(15));
+console.log(getObjectNum(7));
+console.log(getObjectNum('asas'));
 
 /*
     Результат:
 
-    {единицы: 5, десятки: 4, сотни: 2}
+    {units: 5, dozens: 4, hundreds: 2}
     Число превышает 999
     {}
-    {единицы: 5, десятки: 1, сотни: 0}
-    {единицы: 7, десятки: 0, сотни: 0}
+    {units: 5, dozens: 1, hundreds: 0}
+    {units: 7, dozens: 0, hundreds: 0}
+    Пердано не число!
+    {}
 */
