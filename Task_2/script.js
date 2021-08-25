@@ -41,17 +41,23 @@ let bas = {
     }
 };
 
-let messageDiv = document.getElementById('message');
-let el = document.createElement('div');
-el.className = 'label';
+const parseObject = () => {
 
-const nfg = bas.numberOfGoods();
+    let messageDiv = document.getElementById('message');
+    let el = document.createElement('div');
+    el.className = 'label';
 
-if ((bas.basket.length > 0) && (nfg > 0)) {
-    
-    el.innerText = 'В корзине ' + nfg + ' товаров на сумму ' + bas.basketPrice() + ' рублей';
-} else {
-    el.innerText = 'Корзина пуста!';
+    const nfg = bas.numberOfGoods();
+
+    if ((bas.basket.length > 0) && (nfg > 0)) {
+        
+        el.innerText = 'В корзине ' + nfg + ' товаров на сумму ' + bas.basketPrice() + ' рублей';
+    } else {
+        el.innerText = 'Корзина пуста!';
+    }
+
+    messageDiv.appendChild(el);
 }
 
-messageDiv.appendChild(el);
+parseObject();
+
