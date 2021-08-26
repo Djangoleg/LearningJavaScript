@@ -41,7 +41,6 @@ let bas = {
     }
 };
 
-
 const renderBasketProducts = () => {
 
     let catalogDiv = document.getElementById('catalog');
