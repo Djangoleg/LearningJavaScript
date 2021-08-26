@@ -41,7 +41,7 @@ let bas = {
     }
 };
 
-const parseObject = () => {
+const renderObject = () => {
 
     let messageDiv = document.getElementById('message');
     let el = document.createElement('div');
@@ -59,4 +59,4 @@ const parseObject = () => {
     messageDiv.appendChild(el);
 }
 
-parseObject();
+renderObject();

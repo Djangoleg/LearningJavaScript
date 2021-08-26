@@ -42,7 +42,7 @@ let bas = {
 };
 
 
-const getBasketProducts = () => {
+const renderBasketProducts = () => {
 
     let catalogDiv = document.getElementById('catalog');
 
@@ -74,4 +74,4 @@ const getBasketProducts = () => {
     }
 }
 
-getBasketProducts();
+renderBasketProducts();
