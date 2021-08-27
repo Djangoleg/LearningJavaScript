@@ -41,6 +41,10 @@ let bas = {
     }
 };
 
+/**
+ * Вариант 1. 
+ * Выглядит проще. 
+ **/
 const renderBasketProducts = () => {
 
     let catalogDiv = document.getElementById('catalog');
@@ -48,7 +52,7 @@ const renderBasketProducts = () => {
     if (catalogDiv) {
 
         let el = document.createElement('div');
-
+        
         if (bas.basket.length > 0) {
             
             let catalog = '<b>Товары в корзине: <br><br></b>';
@@ -68,9 +72,98 @@ const renderBasketProducts = () => {
 
             el.innerHTML = '<b>Корзина пуста!</b>';
         }
+        
 
         catalogDiv.appendChild(el);
     }
 }
 
-renderBasketProducts();
+/**
+ * Вариант 2. 
+ *  
+ **/
+const renderBasketProducts2 = () => {
+
+    const header = ['№', 'Продукт', 'Кол-во', 'Цена за шт', 'Стоимость'];
+
+    let catalogDiv = document.getElementById('catalog');
+
+    if (catalogDiv) {
+
+        const main_el = document.createElement('div');
+
+        if (bas.basket.length > 0) {
+             
+            const b = document.createElement('b');
+            b.innerText = 'Товары в корзине:';
+            main_el.appendChild(b);
+
+            main_el.appendChild(document.createElement('br'));
+            main_el.appendChild(document.createElement('br'));
+            
+            const tr = document.createElement('tr');
+
+            for(let i = 0; i < header.length; i++) {
+                const th = document.createElement('th');
+                th.innerText = header[i];
+                tr.appendChild(th);
+            }
+            main_el.appendChild(tr);
+
+            bas.basket.forEach((x, i) => {
+                const tr = document.createElement('tr');
+                let td = document.createElement('td');
+
+                td.innerText = i + 1;
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = x.product;
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = x.count;
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerText = x.price;
+                tr.appendChild(td);
+                
+                td = document.createElement('td');
+                td.innerText = x.count * x.price;
+                tr.appendChild(td);
+
+                main_el.appendChild(tr);
+            });
+
+            const tr1 = document.createElement('tr');
+            const th = document.createElement('th');
+            th.colSpan = 2;
+            th.innerText = 'ИТОГО';
+            tr1.appendChild(th);
+
+            let td = document.createElement('td');
+            td.innerText = bas.getNumberOfGoods();
+            tr1.appendChild(td);
+
+            td = document.createElement('td');
+            tr1.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = bas.getBasketPrice();
+            tr1.appendChild(td);
+
+            main_el.appendChild(tr1);
+
+        } else {
+            const b = document.createElement('b');
+            b.innerText = 'Корзина пуста!';
+            main_el.appendChild(b);
+        }
+        
+
+        catalogDiv.appendChild(main_el);
+    }
+}
+
+renderBasketProducts2();
