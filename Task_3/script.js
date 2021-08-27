@@ -54,13 +54,13 @@ const renderBasketProducts = () => {
             let catalog = '<b>Товары в корзине: <br><br></b>';
             
             catalog += '<table><tbody>';
-            catalog += '<tr><th>№</th><th>Продукт</th><th>Кол-во</th><th>Стоимость</th></tr>';
+            catalog += '<tr><th>№</th><th>Продукт</th><th>Кол-во</th><th>Цена за шт</th><th>Стоимость</th></tr>';
 
             bas.basket.forEach((x, i) => {
-                catalog += '<tr><td>' + (i + 1) + '</td><td>' + x.product + '</td><td>' + x.count + '</td><td>' + x.price + '</td></tr>';
+                catalog += '<tr><td>' + (i + 1) + '</td><td>' + x.product + '</td><td>' + x.count + '</td><td>' + x.price + '</td><td>'+ x.count * x.price + '</td></tr>';
             });
 
-            catalog += '<tr><th colspan="2">ИТОГО</th><td>' + bas.getNumberOfGoods() + '</td><td>' + bas.getBasketPrice() + '</td></tr>';
+            catalog += '<tr><th colspan="2">ИТОГО</th><td>' + bas.getNumberOfGoods() + '</td><td></td><td>' + bas.getBasketPrice() + '</td></tr>';
             catalog += '</tbody></table>'
             el.innerHTML = catalog;
 
