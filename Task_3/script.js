@@ -73,7 +73,6 @@ const renderBasketProducts = () => {
             el.innerHTML = '<b>Корзина пуста!</b>';
         }
         
-
         catalogDiv.appendChild(el);
     }
 }
@@ -161,7 +160,6 @@ const renderBasketProducts2 = () => {
             main_el.appendChild(b);
         }
         
-
         catalogDiv.appendChild(main_el);
     }
 }
