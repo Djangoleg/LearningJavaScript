@@ -62,7 +62,7 @@ let catalog = {
 /**
  * Покупки.
  */
-let shoppingBasket = Object.assign({}, catalog); //Object.create(catalog);
+let shoppingBasket = Object.assign({}, catalog);
 
 /**
  * Поиск элемента в массиве.
@@ -70,7 +70,7 @@ let shoppingBasket = Object.assign({}, catalog); //Object.create(catalog);
  * @param {product} val 
  * @returns 
  */
-const getIndexFromArray = (arr, val) => {
+const getIndexFromArrObjects = (arr, val) => {
     let indexes = -1;
     for(i = 0; i < arr.length; i++) {
         if (arr[i].product_id === val.product_id) return i;
@@ -152,11 +152,9 @@ const render = (cat, isEnabledBuyButton) => {
 
                     btn.onclick = function(){
 
-                        let sbIndex = getIndexFromArray(shoppingBasket.basket, cat.basket[i]);
+                        let sbIndex = getIndexFromArrObjects(shoppingBasket.basket, cat.basket[i]);
 
                         shoppingBasket.addProduct(sbIndex, Object.assign({}, cat.basket[i]));
-                        
-                        //cat.basket.splice(i, 1);
 
                         catalogDiv.innerText = '';
 
