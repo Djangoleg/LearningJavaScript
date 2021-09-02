@@ -1,5 +1,5 @@
 /**
- * Каталог товаров.
+ * Позиции.
  */
 let catalog = {
     basket: [
@@ -96,9 +96,9 @@ const render = (cat, isEnabledBuyButton) => {
             const b = document.createElement('b');
 
             if (isEnabledBuyButton) {
-                b.innerText = 'Корзина товаров:';
+                b.innerText = 'Позиции:';
             } else {
-                b.innerText = 'Покупки:';
+                b.innerText = 'Корзина товаров:';
             }
             
             main_el.appendChild(b);
@@ -175,7 +175,7 @@ const render = (cat, isEnabledBuyButton) => {
 
                 } else {
                     const div = document.createElement('div');
-                    div.innerText = 'Оплачено';
+                    div.innerText = 'Добавлено в корзину';
                     td.appendChild(div); 
                 }
 
