@@ -1,30 +1,40 @@
+/**
+ * Каталог товаров.
+ */
 let catalog = {
     basket: [
         {
             product_id: 1,
             product_name: 'Milk', 
-            count: 5, 
+            count: 1, 
             price: 100
         },
         {
             product_id: 2,
             product_name: 'Croissant', 
-            count: 4, 
+            count: 1, 
             price: 70
         }, 
         {
             product_id: 3,
             product_name: 'Lemonade', 
-            count: 3, 
+            count: 1, 
             price: 80
         },
         {
             product_id: 4,
             product_name: 'Bubble gum', 
-            count: 7, 
+            count: 1, 
             price: 40
         }
     ],
+    addProduct: function(index, product) {
+        if (this.basket[index]) {
+            this.basket[index].count += 1;
+        } else {
+            this.basket.push(product);
+        }
+    },
     getBasketPrice: function() {
 
       let basketPrice = 0;
@@ -49,12 +59,30 @@ let catalog = {
     }
 };
 
-let shoppingBasket = Object.create(catalog);
+/**
+ * Покупки.
+ */
+let shoppingBasket = Object.assign({}, catalog); //Object.create(catalog);
 
 /**
- * Отрисовка. 
- *  
- **/
+ * Поиск элемента в массиве.
+ * @param {catalog} arr 
+ * @param {product} val 
+ * @returns 
+ */
+const getIndexFromArray = (arr, val) => {
+    let indexes = -1;
+    for(i = 0; i < arr.length; i++) {
+        if (arr[i].product_id === val.product_id) return i;
+    }
+    return indexes;
+}
+
+/**
+ * Отрисовка.
+ * @param {catalog} cat 
+ * @param {boolean} isEnabledBuyButton 
+ */
 const render = (cat, isEnabledBuyButton) => {
 
     let catalogDiv = document.getElementById('catalog');
@@ -123,10 +151,12 @@ const render = (cat, isEnabledBuyButton) => {
                     btn.className = 'slide';
 
                     btn.onclick = function(){
-                        
-                        shoppingBasket.basket.push(cat.basket[i]);
 
-                        cat.basket.splice(i, 1);
+                        let sbIndex = getIndexFromArray(shoppingBasket.basket, cat.basket[i]);
+
+                        shoppingBasket.addProduct(sbIndex, Object.assign({}, cat.basket[i]));
+                        
+                        //cat.basket.splice(i, 1);
 
                         catalogDiv.innerText = '';
 
@@ -173,7 +203,10 @@ const render = (cat, isEnabledBuyButton) => {
             td = document.createElement('td');
             tr1.appendChild(td);
 
-            table.appendChild(tr1);
+            if (!isEnabledBuyButton) {
+
+                table.appendChild(tr1);
+            }
 
             main_el.appendChild(table);
 
@@ -191,6 +224,9 @@ const render = (cat, isEnabledBuyButton) => {
     }
 }
 
+/**
+ * Инициализация.
+ */
 const init = () => {
     shoppingBasket.basket = [];
     render(catalog, true);
