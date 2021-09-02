@@ -96,7 +96,7 @@ const render = (cat, isEnabledBuyButton) => {
             const b = document.createElement('b');
 
             if (isEnabledBuyButton) {
-                b.innerText = 'Позиции:';
+                b.innerText = 'Товарные позиции:';
             } else {
                 b.innerText = 'Корзина товаров:';
             }
@@ -113,8 +113,14 @@ const render = (cat, isEnabledBuyButton) => {
             const tr = document.createElement('tr');
 
             for(let i = 0; i < tableHeader.length; i++) {
+
                 const th = document.createElement('th');
                 th.innerText = tableHeader[i];
+
+                if ((i === 2) || (i === 4)) {
+                    th.style.display = isEnabledBuyButton ? 'none' : 'table-cell';
+                }
+
                 tr.appendChild(th);
             }   
 
@@ -133,6 +139,7 @@ const render = (cat, isEnabledBuyButton) => {
 
                 td = document.createElement('td');
                 td.innerText = x.count;
+                td.style.display = isEnabledBuyButton ? 'none' : 'table-cell';
                 tr.appendChild(td);
 
                 td = document.createElement('td');
@@ -141,6 +148,7 @@ const render = (cat, isEnabledBuyButton) => {
                 
                 td = document.createElement('td');
                 td.innerText = x.count * x.price;
+                td.style.display = isEnabledBuyButton ? 'none' : 'table-cell';
                 tr.appendChild(td);
 
                 td = document.createElement('td');
