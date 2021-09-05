@@ -98,10 +98,6 @@ const map = {
             const cellKey = `x${point.x}_y${point.y}`;
             const snakeCell = this.cells[cellKey];
 
-            if (!snakeCell) {
-                console.log(point);
-            }
-
             snakeCell.classList.add(index === 0 ? 'snakeHead' : 'snakeBody');
             this.usedCells.push(snakeCell);
         });
@@ -326,22 +322,19 @@ const game = {
 
     snakeСomeBack() {
         const nextHeadPoint = this.snake.getNextHeadPoint();
-        const snakeHeadCoords = this.snake.getBody()[0]; 
-        let snakeHeadCoordX = snakeHeadCoords.x;
-        let snakeHeadCoordY = snakeHeadCoords.y; 
+        const snakeHeadCoords = this.snake.getBody(); 
+        let snakeHeadCoordX = snakeHeadCoords[0].x;
+        let snakeHeadCoordY = snakeHeadCoords[0].y; 
         
         if (nextHeadPoint.x < 0) {
-            snakeHeadCoordX = this.config.getColsCount();
+            snakeHeadCoordX = snakeHeadCoords.length > 1 ? this.config.getColsCount() - 1 : this.config.getColsCount();
         } else if (nextHeadPoint.y < 0) {
-            snakeHeadCoordY = this.config.getRowsCount();
+            snakeHeadCoordY = snakeHeadCoords.length > 1 ? this.config.getRowsCount() - 1 : this.config.getRowsCount();
         } else if (nextHeadPoint.x >= this.config.getColsCount()) {
-            snakeHeadCoordX = -1;
+            snakeHeadCoordX = snakeHeadCoords.length > 1 ? 0 : -1;
         } else if (nextHeadPoint.y >= this.config.getRowsCount()) {
-            snakeHeadCoordY = -1;
+            snakeHeadCoordY = snakeHeadCoords.length > 1 ? 0 : -1;
         }
-        console.log('nextHeadPoint: ' + nextHeadPoint.x + ',' + nextHeadPoint.y );
-        console.log('snakeHeadCoords: ' + snakeHeadCoords.x + ',' + snakeHeadCoords.y);
-        console.log('new x, y: ' + snakeHeadCoordX + ',' + snakeHeadCoordY);
 
         this.snake.setHeadCoordinates(snakeHeadCoordX, snakeHeadCoordY);
     },
