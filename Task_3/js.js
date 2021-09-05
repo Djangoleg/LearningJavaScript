@@ -98,6 +98,10 @@ const map = {
             const cellKey = `x${point.x}_y${point.y}`;
             const snakeCell = this.cells[cellKey];
 
+            if (!snakeCell) {
+                console.log(point);
+            }
+
             snakeCell.classList.add(index === 0 ? 'snakeHead' : 'snakeBody');
             this.usedCells.push(snakeCell);
         });
@@ -151,13 +155,13 @@ const snake = {
         this.lastStepDirection = direction;
     },
 
-    setHeadCoordinates(coordinatesX, coordinatesY) {
+    setHeadCoordinates(coordinateX, coordinateY) {
         if (this.body.length > 0)
         {
-            this.body[0] = {x: coordinatesX, y: coordinatesY};
+            this.body[0] = {x: coordinateX, y: coordinateY};
         }
         else {
-            this.body.push({x: coordinatesX, y: coordinatesY});
+            this.body.push({x: coordinateX, y: coordinateY});
         }
     },
 
@@ -206,33 +210,6 @@ const snake = {
             case 'left':
                 return {x: firstPoint.x - 1, y: firstPoint.y};
         }
-    },
-
-    isNeedRotate(colsCount, rowsCount) {
-        const nextHeadPoint = this.getNextHeadPoint();
-        return (nextHeadPoint.x === -1 || 
-            nextHeadPoint.y === -1 || 
-            nextHeadPoint.x === colsCount || 
-            nextHeadPoint.y === rowsCount);
-    },
-
-    rotate(colsCount, rowsCount) {
-        const nextHeadPoint = this.getNextHeadPoint();
-        const snakeBodyCoord = this.getBody()[0]; 
-        let snakeBodyCoordX = snakeBodyCoord.x;
-        let snakeBodyCoordY = snakeBodyCoord.y; 
-        
-        if (nextHeadPoint.x === -1) {
-            snakeBodyCoordX = colsCount - 1;
-        } else if (nextHeadPoint.y === -1) {
-            snakeBodyCoordY = rowsCount - 1;
-        } else if (nextHeadPoint.x === colsCount) {
-            snakeBodyCoordX = 0;
-        } else if (nextHeadPoint.y === rowsCount) {
-            snakeBodyCoordY = 0;
-        }
-
-        this.setHeadCoordinates(snakeBodyCoordX, snakeBodyCoordY);
     },
 };
 
@@ -339,6 +316,36 @@ const game = {
         ];
     },
 
+    isNeedSnakeComeBack() {
+        const nextHeadPoint = this.snake.getNextHeadPoint();
+        return (nextHeadPoint.x < 0 || 
+            nextHeadPoint.y < 0 || 
+            nextHeadPoint.x >= this.config.getColsCount() || 
+            nextHeadPoint.y >= this.config.getRowsCount());
+    },
+
+    snakeСomeBack() {
+        const nextHeadPoint = this.snake.getNextHeadPoint();
+        const snakeHeadCoords = this.snake.getBody()[0]; 
+        let snakeHeadCoordX = snakeHeadCoords.x;
+        let snakeHeadCoordY = snakeHeadCoords.y; 
+        
+        if (nextHeadPoint.x < 0) {
+            snakeHeadCoordX = this.config.getColsCount();
+        } else if (nextHeadPoint.y < 0) {
+            snakeHeadCoordY = this.config.getRowsCount();
+        } else if (nextHeadPoint.x >= this.config.getColsCount()) {
+            snakeHeadCoordX = -1;
+        } else if (nextHeadPoint.y >= this.config.getRowsCount()) {
+            snakeHeadCoordY = -1;
+        }
+        console.log('nextHeadPoint: ' + nextHeadPoint.x + ',' + nextHeadPoint.y );
+        console.log('snakeHeadCoords: ' + snakeHeadCoords.x + ',' + snakeHeadCoords.y);
+        console.log('new x, y: ' + snakeHeadCoordX + ',' + snakeHeadCoordY);
+
+        this.snake.setHeadCoordinates(snakeHeadCoordX, snakeHeadCoordY);
+    },
+
     getRandomFreeCoordinates() {
         const exclude = [this.food.getCoordinates(), this.barrier.getCoordinates(), ...this.snake.getBody()];
 
@@ -429,10 +436,8 @@ const game = {
     tickHandler() {
         if (!this.canMakeStep()) return this.finish();
 
-        // Нужно ли перекинуть змейку?
-        if (this.snake.isNeedRotate(this.config.getColsCount(), this.config.getRowsCount())) {
-            this.snake.rotate(this.config.getColsCount(), this.config.getRowsCount());
-        }
+        // Нужно ли вернуть змейку?
+        if (this.isNeedSnakeComeBack()) this.snakeСomeBack();
 
         if (this.food.isOnPoint(this.snake.getNextHeadPoint())) {
             this.snake.growUp();
