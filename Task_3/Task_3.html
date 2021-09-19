@@ -1,0 +1,30 @@
+<!--
+3. *Сделать так, чтобы товары в каталоге выводились при помощи JS:
+    - Создать массив товаров (сущность Product);
+    - При загрузке страницы на базе данного массива генерировать вывод из него. 
+      HTML-код должен содержать только div id=”catalog” без вложенного кода. Весь вид каталога генерируется JS.  
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Basket product</title>
+    <style type="text/css">
+      table {
+       width: 400px; /* Ширина таблицы */
+       border-collapse: collapse; /* Убираем двойные линии между ячейками */
+      }
+      td, th {
+       padding: 3px; /* Поля вокруг содержимого таблицы */
+       border: 1px solid black; /* Параметры рамки */
+      }
+      th {
+       background: #b0e0e6; /* Цвет фона */
+      }
+    </style>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id='catalog'></div>
+  </body>
+</html>
